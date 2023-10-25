@@ -48,9 +48,27 @@ class Morse
         "." => "E",
     ];
 
-
     public function convertToLetters(string $str): string
     {
-        //@todo write your logic here
+        $morseWords = explode('   ', $str);
+        $result = [];
+
+        foreach ($morseWords as $morseWord) {
+            $morseLetters = explode(' ', $morseWord);
+            $decodedWord = '';
+
+            foreach ($morseLetters as $morseLetter) {
+                if (array_key_exists($morseLetter, self::MORSE)) {
+                    $decodedWord .= self::MORSE[$morseLetter];
+                }
+            }
+            $result[] = $decodedWord;
+        }
+
+        return implode(' ', $result);
     }
 }
+$morse = new MORSE();
+$morseCode = ".... . .-.. .-.. ---   .... . .-.. .-.. ---";
+$decodedText = $morse->convertToLetters($morseCode);
+echo $decodedText;
